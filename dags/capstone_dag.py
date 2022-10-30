@@ -4,8 +4,7 @@ from airflow import DAG
 from airflow.operators.dummy_operator import DummyOperator
 from airflow.contrib.hooks.aws_hook import AwsHook
 from plugins.operators.stage_redshift import StageToRedshiftOperator
-from plugins.operators.load_facts import LoadFactsOperator
-from plugins.operators.load_dimensions import LoadDimensionsOperator
+from plugins.operators.load_tables import LoadTableOperator
 from plugins.operators.data_quality import DataQualityOperator
 from plugins.operators.creat_table import CreateTableOperator
 from plugins.helpers.sql_queries import SqlQueries

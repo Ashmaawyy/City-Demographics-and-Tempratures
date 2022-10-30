@@ -18,7 +18,7 @@ class StageToRedshiftOperator(BaseOperator):
         self.table = table
         self.copy_sql = copy_sql
 
-    def execute(self, context):
+    def execute(self):
         redshift = PostgresHook(self.redshift_conn_id)
 
         self.log. \

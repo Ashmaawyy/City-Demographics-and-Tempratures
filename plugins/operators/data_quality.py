@@ -22,7 +22,7 @@ class DataQualityOperator(BaseOperator):
         self.test_count_query = test_count_query
         self.expected_result = expected_result
 
-    def execute(self, context):
+    def execute(self):
         redshift = PostgresHook(self.redshift_conn_id)
         try:
             self.log.info('Executing data quality query...')

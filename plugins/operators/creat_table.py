@@ -22,7 +22,7 @@ class CreateTableOperator(BaseOperator):
         self.table = table
         self.create_sql = create_sql
 
-    def execute(self, context):
+    def execute(self):
         redshift = PostgresHook(self.redshift_conn_id)
         
         try:
