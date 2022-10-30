@@ -1,59 +1,31 @@
 from airflow.hooks.postgres_hook import PostgresHook
-from airflow.contrib.hooks.aws_hook import AwsHook
 from airflow.models import BaseOperator
 from psycopg2 import Error
 
 class StageToRedshiftOperator(BaseOperator):
     ui_color = '#358140'
-    template_fields = ('s3_key',)
-    copy_sql = """
-        COPY {}
-        FROM '{}'
-        ACCESS_KEY_ID '{}'
-        SECRET_ACCESS_KEY '{}'
-        REGION '{}'
-        DELIMITER '{}'
-    """
 
     def __init__(self,
                  # Operators params (with defaults) here
                  redshift_conn_id = '',
-                 aws_credentials_id = '',
-                 region = 'us-west-2',
                  table = '',
-                 s3_bucket = '',
-                 s3_key = '',
-                 delimiter = ',',
+                 copy_sql = '',
                  *args, **kwargs):
 
         super().__init__(*args, **kwargs)
         # Map params here
         self.redshift_conn_id = redshift_conn_id
-        self.aws_credentials_id = aws_credentials_id
-        self.region = region
-        self.s3_bucket = s3_bucket
-        self.s3_key = s3_key
         self.table = table
-        self.delimiter = delimiter
+        self.copy_sql = copy_sql
 
     def execute(self, context):
         redshift = PostgresHook(self.redshift_conn_id)
-        aws_hook = AwsHook(self.aws_credentials_id)
-        credentials = aws_hook.get_credentials()
 
-        self.log.info('Copying data from S3 bucket {} to Redshift table {}'.format(self.s3_bucket, self.table))
-        rendered_key = self.s3_key.format(**context)
-        s3_path = 's3://{}/{}'.format(self.s3_bucket, rendered_key)
-        formatted_copy_sql = StageToRedshiftOperator.copy_sql.format(
-            self.table,
-            s3_path,
-            credentials.access_key,
-            credentials.secret_key,
-            self.region,
-            self.delimiter
-        )
+        self.log. \
+            info('Copying data from S3 bucket {} to Redshift table {}'. \
+            format(self.s3_bucket, self.table))
         try:
-            redshift.run(formatted_copy_sql)
+            redshift.run(self.copy_sql)
             self.log.info('Data copied to {} susseccfully :)'.format(self.table))
 
         except Error as e:
