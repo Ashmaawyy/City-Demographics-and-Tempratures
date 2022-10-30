@@ -55,7 +55,6 @@ class SqlQueries:
         SECRET_ACCESS_KEY '{}'
         REGION 'us-west-2'
         DELIMITER ','
-        WHERE country = 'United States'
     """)
 
     staged_demographics_copy_sql_without_aws_keys = ("""
