@@ -8,8 +8,6 @@ class DataQualityOperator(BaseOperator):
     def __init__(self,
                  # Define your operators params (with defaults) here
                  redshift_conn_id = '',
-                 aws_credentials_id = '',
-                 region = '',
                  test_count_query = '',
                  expected_result = 0,
                  *args, **kwargs):
@@ -17,8 +15,6 @@ class DataQualityOperator(BaseOperator):
         super().__init__(*args, **kwargs)
         # Map params here
         self.redshift_conn_id = redshift_conn_id
-        self.aws_credentials_id = aws_credentials_id
-        self.region = region
         self.test_count_query = test_count_query
         self.expected_result = expected_result
 
@@ -29,7 +25,8 @@ class DataQualityOperator(BaseOperator):
             query_result = redshift.run(self.test_count_query)
             if query_result == self.expected_result:
                 self.log.info('Data qauality checks completed successfully :)')
-                self.log.info('test query result = {}\nexpected result = {}'.format(query_result, self.expected_result))
+                self.log.info('test query result = {}\nexpected result = {}'. \
+                    format(query_result, self.expected_result))
             else:
                 self.log.error('Data quality check failed\nexpected result = {}\nreturned result = {}' \
                     .format(query_result, self.expected_result))

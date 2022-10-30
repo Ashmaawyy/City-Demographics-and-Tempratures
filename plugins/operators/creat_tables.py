@@ -8,8 +8,6 @@ class CreateTableOperator(BaseOperator):
     def __init__(self,
                  # Define your operators params (with defaults) here
                  redshift_conn_id = '',
-                 aws_credentials_id = '',
-                 region = '',
                  table = '',
                  create_sql = '',
                  *args, **kwargs):
@@ -17,8 +15,6 @@ class CreateTableOperator(BaseOperator):
         super().__init__(*args, **kwargs)
         # Map params here
         self.redshift_conn_id = redshift_conn_id
-        self.aws_credentials_id = aws_credentials_id
-        self.region = region
         self.table = table
         self.create_sql = create_sql
 
