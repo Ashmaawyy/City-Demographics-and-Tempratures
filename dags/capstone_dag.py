@@ -53,27 +53,6 @@ create_staging_songs_table = CreateTableOperator(
   table = 'songplays',
   create_sql = SqlQueries.staging_demographics_create_sql
   )
-stage_events_to_redshift = StageToRedshiftOperator(
-  task_id = 'stage_temperatures',
-  dag = dag,
-  redshift_conn_id = 'redshift',
-  aws_credentials_id = 'aws_credentials',
-  region = 'us-west-2',
-  table = 'staged_temperatures',
-  s3_bucket = 'temperatures-and-demographics',
-  s3_key = 'temperature_data'
-  )
-
-stage_songs_to_redshift = StageToRedshiftOperator(
-  task_id = 'stage_songs',
-  dag = dag,
-  redshift_conn_id = 'redshift',
-  aws_credentials_id = 'aws_credentials',
-  region = 'us-west-2',
-  table = 'staged_songs',
-  s3_bucket = 'udacity-dend',
-  s3_key = 'demographic_data'
-  )
 
 aws_hook = AwsHook('aws_credentials')
 aws_credentials = aws_hook.get_credentials()
