@@ -34,23 +34,18 @@ dag = DAG(
 
 start_operator = DummyOperator(task_id = 'Begin_execution',  dag = dag)
 
-create_staging_events_table = CreateTableOperator(
-  task_id = 'create_staging_events_table',
+create_staging_temperatures_table = CreateTableOperator(
+  task_id = 'create_staging_temperatures_table',
   dag = dag,
   redshift_conn_id = 'redshift',
-  aws_credentials_id = 'aws_credentials',
-  region = 'us-west-2',
   table = 'staging_events',
   create_sql = SqlQueries.staging_temperatures_create_sql
   )
 
-create_staging_songs_table = CreateTableOperator(
-  task_id = 'create_staging_songs_table',
+create_staging_demographics_table = CreateTableOperator(
+  task_id = 'create_staging_demographics_table',
   dag = dag,
   redshift_conn_id = 'redshift',
-  aws_credentials_id = 'aws_credentials',
-  region = 'us-west-2',
-  table = 'songplays',
   create_sql = SqlQueries.staging_demographics_create_sql
   )
 
