@@ -26,7 +26,8 @@ dag = DAG(
   description = '''
     Stage data from an S3 bucket to a redshift cluster,
     and then moves the data from the staged tables to the database tables,
-    and then feeds the data to a linear regression model to analyze the relation between the two variables
+    and then feeds the data to a linear regression model
+    to analyze the relation between the two variables
     ''',
   schedule_interval = '@yearly'
   )
