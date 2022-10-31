@@ -29,7 +29,7 @@ dag = \
       and then feeds the data to a linear regression model
       to analyze the relation between the two variables
       ''',
-    schedule_interval = '@yearly'
+    schedule_interval = '0 7 * * *'
   )
 
 start_operator = DummyOperator(task_id = 'Begin_execution',  dag = dag)
