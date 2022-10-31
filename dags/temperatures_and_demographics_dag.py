@@ -2,6 +2,7 @@ import os
 from datetime import datetime, timedelta
 from airflow import DAG
 from airflow.operators.dummy_operator import DummyOperator
+from airflow.operators.python import PythonOperator
 from airflow.contrib.hooks.aws_hook import AwsHook
 from plugins.operators.stage_to_redshift import StageToRedshiftOperator
 from plugins.operators.load_tables import LoadTableOperator
