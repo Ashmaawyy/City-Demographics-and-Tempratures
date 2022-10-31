@@ -53,19 +53,26 @@ aws_hook = AwsHook('aws_credentials')
 aws_credentials = aws_hook.get_credentials()
 
 stage_temperatures_to_redshift = StageToRedshiftOperator(
-  task_id = 'stage_temperatures',
-  dag = dag,
-  redshift_conn_id = 'redshift',
-  copy_sql = SqlQueries.staged_temperatures_copy_sql_without_aws_keys. \
-    format(aws_credentials.access_key, aws_credentials.secret_key)
-  )
+    task_id = 'stage_temperatures',
+    dag = dag,
+    redshift_conn_id = 'redshift',
+    aws_credentials_id = 'aws_credentials',
+    region = 'us-west-2',
+    table = 'staged_temperatures',
+    s3_bucket = 'tempratures-and-demographics',
+    s3_key = 'temperatures-data'
+)
 
 stage_demographics_to_redshift = StageToRedshiftOperator(
-  task_id = 'stage_demographics',
-  dag = dag,
-  redshift_conn_id = 'redshift',
-  copy_sql = SqlQueries.staged_demographics_copy_sql_without_aws_keys. \
-    format(aws_credentials.access_key, aws_credentials.secret_key)
-  )
+    task_id = 'stage_demographgics',
+    dag = dag,
+    redshift_conn_id = 'redshift',
+    aws_credentials_id = 'aws_credentials',
+    region = 'us-west-2',
+    table = 'staged_demographics',
+    delimiter = ';',
+    s3_bucket = 'temperatues-and-demographics',
+    s3_key = 'demographics-data'
+)
 
 end_operator = DummyOperator(task_id = 'stop_execution',  dag = dag)

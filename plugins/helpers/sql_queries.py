@@ -48,24 +48,6 @@ class SqlQueries:
 
     ''')
 
-    staged_tempratures_copy_sql_without_aws_keys = ("""
-        COPY staged_tempratures
-        FROM 's3://temperatures-and-demographics/temperatue-data'
-        ACCESS_KEY_ID '{}'
-        SECRET_ACCESS_KEY '{}'
-        REGION 'us-west-2'
-        DELIMITER ','
-    """)
-
-    staged_demographics_copy_sql_without_aws_keys = ("""
-        COPY staged_tempratures
-        FROM 's3://temperatures-and-demographics/demographics-data'
-        ACCESS_KEY_ID '{}'
-        SECRET_ACCESS_KEY '{}'
-        REGION 'us-west-2'
-        DELIMITER ';'
-    """)
-
     songplays_table_insert = ("""
         
     """)
