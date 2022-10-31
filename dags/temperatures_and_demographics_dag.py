@@ -140,7 +140,7 @@ stage_temperatures_to_redshift >> run_data_quality_checks
 stage_demographics_to_redshift >> run_data_quality_checks
 
 # Fourth Stage
-run_data_quality_checks >> create_age_temperatures_view
+run_data_quality_checks >> create_temperatures_demographics_fact_table
 
 # Fifth Stage
 create_temperatures_demographics_fact_table >> create_age_temperatures_view
