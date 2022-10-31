@@ -41,7 +41,8 @@ class StageToRedshiftOperator(BaseOperator):
         aws_hook = AwsHook(self.aws_credentials_id)
         credentials = aws_hook.get_credentials()
 
-        self.log.info('Copying data from S3 bucket {} to Redshift table {}'.format(self.s3_bucket, self.table))
+        self.log.info('Copying data from S3 bucket {} to Redshift table {}'. \
+            format(self.s3_bucket, self.table))
         rendered_key = self.s3_key.format(**context)
         s3_path = 's3://{}/{}'.format(self.s3_bucket, rendered_key)
         formatted_copy_sql = StageToRedshiftOperator.copy_sql.format(
