@@ -34,7 +34,8 @@ dag = DAG(
 
 start_operator = DummyOperator(task_id = 'Begin_execution',  dag = dag)
 
-create_staging_temperatures_table = CreateTableOperator(
+create_staging_temperatures_table = \
+  CreateTableOperator(
   task_id = 'create_staging_temperatures_table',
   dag = dag,
   redshift_conn_id = 'redshift',
@@ -42,7 +43,8 @@ create_staging_temperatures_table = CreateTableOperator(
   create_sql = SqlQueries.staging_temperatures_create_sql
   )
 
-create_staging_demographics_table = CreateTableOperator(
+create_staging_demographics_table = \
+  CreateTableOperator(
   task_id = 'create_staging_demographics_table',
   dag = dag,
   redshift_conn_id = 'redshift',
@@ -52,7 +54,8 @@ create_staging_demographics_table = CreateTableOperator(
 aws_hook = AwsHook('aws_credentials')
 aws_credentials = aws_hook.get_credentials()
 
-stage_temperatures_to_redshift = StageToRedshiftOperator(
+stage_temperatures_to_redshift = \
+  StageToRedshiftOperator(
   task_id = 'stage_temperatures',
   dag = dag,
   redshift_conn_id = 'redshift',
@@ -63,7 +66,8 @@ stage_temperatures_to_redshift = StageToRedshiftOperator(
   s3_key = 'temperatures-data'
   )
 
-stage_demographics_to_redshift = StageToRedshiftOperator(
+stage_demographics_to_redshift = \
+  StageToRedshiftOperator(
   task_id = 'stage_demographgics',
   dag = dag,
   redshift_conn_id = 'redshift',
