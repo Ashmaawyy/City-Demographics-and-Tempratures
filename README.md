@@ -11,7 +11,7 @@ This project aims to prepare the data for analysis to inspect if there is a rela
 - First staging tables are created and loaded from S3,
 - Then data_quality_checks are performed on the data to see if there is NULL values in the cities and temperatures fields,
 - Then the temperatures_demographics_fact_table is created and loaded,
-- Then age_temperatures, gender_temperatures, and race_temperatures views are creaeted for analysis purposes.
+- Then age_temperatures, gender_temperatures, and race_temperatures views are creaeted to analyze each variable against average_temperature field.
 
 <br>
 
