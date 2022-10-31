@@ -47,26 +47,6 @@ class SqlQueries:
     time_table_create_sql = ('''
 
     ''')
-
-    songplays_table_insert = ("""
-        
-    """)
-
-    users_table_insert = ("""
-        
-    """)
-
-    songs_table_insert = ("""
-        
-    """)
-
-    artists_table_insert = ("""
-        
-    """)
-
-    time_table_insert = ("""
-        
-    """)
    
     userId_data_quality_check = ("""
     
