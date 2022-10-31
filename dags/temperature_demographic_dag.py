@@ -71,7 +71,7 @@ stage_demographics_to_redshift = StageToRedshiftOperator(
   region = 'us-west-2',
   table = 'staged_demographics',
   delimiter = ';',
-  s3_bucket = 'temperatues-and-demographics',
+  s3_bucket = 'temperatures-and-demographics',
   s3_key = 'demographics-data'
   )
 
