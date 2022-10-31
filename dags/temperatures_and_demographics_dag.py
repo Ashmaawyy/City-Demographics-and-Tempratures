@@ -118,7 +118,7 @@ create_age_temperatures_view = \
 
 run_data_quality_checks = \
   DataQualityOperator(
-    task_id = '',
+    task_id = 'run_data_quality_checks',
     dag = dag,
     redshift_conn_id = 'redshift',
     test_count_query = SqlQueries.data_quality_sql
