@@ -21,7 +21,7 @@ default_args = {
 }
 
 dag = DAG(
-  'demographic_temperature_dag',
+  'temperatures_and_demographics_dag',
   default_args = default_args,
   description = '''
     Stage data from an S3 bucket to a redshift cluster,
