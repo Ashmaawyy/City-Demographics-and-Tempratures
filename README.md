@@ -12,6 +12,7 @@ This project aims to prepare the data for analysis to inspect if there is a rela
 - Then data_quality_checks are performed on the data to see if there is NULL values in the cities and temperatures fields,
 - Then the temperatures_demographics_fact_table is created and loaded,
 - Then age_temperatures, gender_temperatures, and race_temperatures views are creaeted to analyze each variable against average_temperature field.
+- The pipeline is run '@yearly' as the datasets are updated annually.
 
 <br>
 
@@ -68,3 +69,30 @@ Note: you need to instantiate the scheduler in a diffrent terminal window
 
 - Optimize queries for high read throughput.
 - Add more cluserts in the node, and more nodes if needed.
+
+## Data Dictionary
+
+Temperatures dataset fields are:
+
+- date
+- average_temperature
+- average_temperature_unertainty
+- city
+- country
+- latitude
+- longitude
+
+Demographics dataset fields are:
+
+- city
+- state
+- median_age
+- male_population
+- female_population
+- total_population
+- number_of_veterans
+- foreign_born
+- average_household_size
+- state_code
+- race
+- count
