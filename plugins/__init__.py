@@ -7,7 +7,8 @@ import helpers
 class UdacityPlugin(AirflowPlugin):
     name = "sparkify_plugin"
     operators = [
-        operators.StageToRedshiftOperator,
+        operators.StageCsvToRedshiftOperator,
+        operators.StageJsonToRedshiftOperator,
         operators.LoadFactsOperator,
         operators.LoadTableOperator,
         operators.DataQualityOperator,
