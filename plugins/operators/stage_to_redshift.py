@@ -13,6 +13,9 @@ class StageCsvToRedshiftOperator(BaseOperator):
         SECRET_ACCESS_KEY '{}'
         REGION '{}'
         CSV
+        NULL AS 'NA'
+        MAXERROR 100000
+        IGNOREHEADER 1
         DELIMITER '{}'
     """
 
@@ -71,6 +74,8 @@ class StageJsonToRedshiftOperator(BaseOperator):
         SECRET_ACCESS_KEY '{}'
         REGION '{}'
         JSON 'auto'
+        NULL AS 'NA'
+        MAXERROR 100000
     """
 
     def __init__(self,

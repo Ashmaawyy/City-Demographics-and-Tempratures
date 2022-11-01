@@ -6,6 +6,7 @@ from airflow.contrib.hooks.aws_hook import AwsHook
 from plugins.operators.stage_to_redshift import StageCsvToRedshiftOperator, StageJsonToRedshiftOperator
 from plugins.operators.data_quality_checks import DataQualityOperator
 from plugins.operators.create_tables import CreateTableOperator
+from plugins.operators.load_tables import LoadTableOperator
 from plugins.helpers.sql_queries import SqlQueries
 
 default_args = {
@@ -101,6 +102,15 @@ create_temperatures_demographics_fact_table = \
     create_sql = SqlQueries.temperatures_demographics_fact_table_create_sql
   )
 
+load_temperatures_demographics_fact_table = \
+  CreateTableOperator(
+    task_id = 'load_temperatures_demographics_fact_table',
+    dag = dag,
+    redshift_conn_id = 'redshift',
+    table = 'temperatures_demographics_fact',
+    load_sql = SqlQueries.temperatures_demographics_fact_table_load_sql
+  )
+
 create_race_temperatures_view = \
   CreateTableOperator(
     task_id = 'create_race_temperatures_view',
@@ -156,11 +166,14 @@ stage_demographics_json_to_redshift >> run_data_quality_checks
 run_data_quality_checks >> create_temperatures_demographics_fact_table
 
 # Fifth Stage
-create_temperatures_demographics_fact_table >> create_age_temperatures_view
-create_temperatures_demographics_fact_table >> create_gender_temperatures_view
-create_temperatures_demographics_fact_table >> create_race_temperatures_view
+create_temperatures_demographics_fact_table >> load_temperatures_demographics_fact_table
 
-# Sixth (and last) stage
+# Sixth Stage
+load_temperatures_demographics_fact_table >> create_age_temperatures_view
+load_temperatures_demographics_fact_table >> create_gender_temperatures_view
+load_temperatures_demographics_fact_table >> create_race_temperatures_view
+
+# Seventh (and last) stage
 create_age_temperatures_view >> end_operator
 create_gender_temperatures_view >> end_operator
 create_race_temperatures_view >> end_operator
