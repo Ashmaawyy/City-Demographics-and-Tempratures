@@ -74,7 +74,6 @@ class StageJsonToRedshiftOperator(BaseOperator):
         SECRET_ACCESS_KEY '{}'
         REGION '{}'
         JSON 'auto'
-        NULL AS 'NA'
         MAXERROR 100000
     """
 
