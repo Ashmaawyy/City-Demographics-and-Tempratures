@@ -40,7 +40,7 @@ create_staging_temperatures_table = \
     dag = dag,
     redshift_conn_id = 'redshift',
     table = 'staging_events',
-    create_sql = SqlQueries.staging_temperatures_create_sql
+    create_sql = SqlQueries.staging_temperatues_create_sql
   )
 
 create_staging_demographics_table = \
@@ -48,6 +48,7 @@ create_staging_demographics_table = \
     task_id = 'create_staging_demographics_table',
     dag = dag,
     redshift_conn_id = 'redshift',
+    table = 'staged_demographics',
     create_sql = SqlQueries.staging_demographics_create_sql
   )
 
@@ -68,7 +69,7 @@ stage_temperatures_to_redshift = \
 
 stage_demographics_csv_to_redshift = \
   StageCsvToRedshiftOperator(
-    task_id = 'stage_demographgics',
+    task_id = 'stage_demographgics_csv',
     dag = dag,
     redshift_conn_id = 'redshift',
     aws_credentials_id = 'aws_credentials',
@@ -81,7 +82,7 @@ stage_demographics_csv_to_redshift = \
 
 stage_demographics_json_to_redshift = \
   StageJsonToRedshiftOperator(
-    task_id = 'stage_demographgics',
+    task_id = 'stage_demographgics_json',
     dag = dag,
     redshift_conn_id = 'redshift',
     aws_credentials_id = 'aws_credentials',
