@@ -96,3 +96,5 @@ Demographics dataset fields are:
 - state_code
 - race
 - count
+
+A star schema is used to model this data as only one fact table is needed for the analysis and 3 views for 3 diifrent variables.
