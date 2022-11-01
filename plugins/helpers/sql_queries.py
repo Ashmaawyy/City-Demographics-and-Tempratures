@@ -65,9 +65,7 @@ class SqlQueries:
         foreign_born
 
     FROM public.staged_temperatures LEFT JOIN public.staged_demographics
-    ON staged_temperatures.city = staged_demographics.city
-
-    WHERE staged_temperatures.country = 'United States'
+    ON staged_temperatures.city = staged_demographics.city;
     ''')
 
     race_temperatures_view_create_sql = ('''
