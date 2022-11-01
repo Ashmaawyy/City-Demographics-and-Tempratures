@@ -40,7 +40,7 @@ create_staging_temperatures_table = \
     task_id = 'create_staging_temperatures_table',
     dag = dag,
     redshift_conn_id = 'redshift',
-    table = 'staging_events',
+    table = 'staged_temperatures',
     create_sql = SqlQueries.staging_temperatues_create_sql
   )
 

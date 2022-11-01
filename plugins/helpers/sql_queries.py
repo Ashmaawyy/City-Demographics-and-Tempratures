@@ -50,7 +50,7 @@ class SqlQueries:
     temperatures_demographics_fact_table_load_sql = ('''
     SELECT DISTINCT
         date,
-        city,
+        staged_demographics.city,
         state,
         state_code,
         latitude,
