@@ -48,7 +48,7 @@ class SqlQueries:
     ''')
 
     temperatures_demographics_fact_table_load_sql = ('''
-    SELECT
+    SELECT DISTINCT
         date,
         city,
         state,
@@ -62,7 +62,7 @@ class SqlQueries:
         female_population,
         race,
         count,
-        foreign-born
+        foreign_born
 
     FROM public.staged_temperatures LEFT JOIN public.staged_demographics
     ON staged_temperatures.city = staged_demographics.city
