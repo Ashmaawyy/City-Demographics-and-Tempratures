@@ -111,5 +111,5 @@ class SqlQueries:
     FROM public.staged_temperatures LEFT JOIN public.staged_demographics
     ON staged_temperatures.city = staged_demographics.city
     
-    WHERE average_temperature OR city IS NULL;
+    WHERE average_temperature OR staegd_demographics.city IS NULL;
     ''')
