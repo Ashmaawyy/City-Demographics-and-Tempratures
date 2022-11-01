@@ -83,7 +83,7 @@ class SqlQueries:
     ''')
 
     gender_temperatures_view_create_sql = ('''
-    CREATE OR REPLACE VIEW public.race_temperatures_view
+    CREATE OR REPLACE VIEW public.gender_temperatures_view
     AS SELECT
         male_population,
         female_population,
@@ -95,7 +95,7 @@ class SqlQueries:
     ''')
 
     age_temperatures_view_create_sql = ('''
-    CREATE OR REPLACE VIEW public.race_temperatures_view
+    CREATE OR REPLACE VIEW public.age_temperatures_view
     AS SELECT
         median_age,
         city,

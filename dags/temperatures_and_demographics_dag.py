@@ -64,7 +64,7 @@ stage_temperatures_to_redshift = \
     aws_credentials_id = 'aws_credentials',
     region = 'us-west-2',
     table = 'staged_temperatures',
-    s3_bucket = 'tempratures-and-demographics',
+    s3_bucket = 'temperatures-and-demographics',
     s3_key = 'temperatures-data'
   )
 
@@ -103,7 +103,7 @@ create_temperatures_demographics_fact_table = \
   )
 
 load_temperatures_demographics_fact_table = \
-  CreateTableOperator(
+  LoadTableOperator(
     task_id = 'load_temperatures_demographics_fact_table',
     dag = dag,
     redshift_conn_id = 'redshift',
