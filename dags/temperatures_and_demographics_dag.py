@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 from airflow import DAG
 from airflow.operators.dummy_operator import DummyOperator
 from airflow.contrib.hooks.aws_hook import AwsHook
-from plugins.operators.stage_to_redshift import StageToRedshiftOperator
+from plugins.operators.stage_to_redshift import StageCsvToRedshiftOperator, StageJsonToRedshiftOperator
 from plugins.operators.data_quality_checks import DataQualityOperator
 from plugins.operators.creat_tables import CreateTableOperator
 from plugins.helpers.sql_queries import SqlQueries
@@ -55,7 +55,7 @@ aws_hook = AwsHook('aws_credentials')
 aws_credentials = aws_hook.get_credentials()
 
 stage_temperatures_to_redshift = \
-  StageToRedshiftOperator(
+  StageCsvToRedshiftOperator(
     task_id = 'stage_temperatures',
     dag = dag,
     redshift_conn_id = 'redshift',
@@ -66,8 +66,8 @@ stage_temperatures_to_redshift = \
     s3_key = 'temperatures-data'
   )
 
-stage_demographics_to_redshift = \
-  StageToRedshiftOperator(
+stage_demographics_csv_to_redshift = \
+  StageCsvToRedshiftOperator(
     task_id = 'stage_demographgics',
     dag = dag,
     redshift_conn_id = 'redshift',
@@ -77,6 +77,18 @@ stage_demographics_to_redshift = \
     delimiter = ';',
     s3_bucket = 'temperatures-and-demographics',
     s3_key = 'demographics-data'
+  )
+
+stage_demographics_json_to_redshift = \
+  StageJsonToRedshiftOperator(
+    task_id = 'stage_demographgics',
+    dag = dag,
+    redshift_conn_id = 'redshift',
+    aws_credentials_id = 'aws_credentials',
+    region = 'us-west-2',
+    table = 'staged_demographics',
+    s3_bucket = 'temperatures-and-demographics',
+    s3_key = 'demographics-json-data'
   )
 
 create_temperatures_demographics_fact_table = \
@@ -131,11 +143,13 @@ start_operator >> create_staging_demographics_table
 
 # Second Stage
 create_staging_temperatures_table >> stage_temperatures_to_redshift
-create_staging_demographics_table >> stage_demographics_to_redshift
+create_staging_demographics_table >> stage_demographics_csv_to_redshift
+create_staging_demographics_table >> stage_demographics_json_to_redshift
 
 # Third Stage
 stage_temperatures_to_redshift >> run_data_quality_checks
-stage_demographics_to_redshift >> run_data_quality_checks
+stage_demographics_csv_to_redshift >> run_data_quality_checks
+stage_demographics_json_to_redshift >> run_data_quality_checks
 
 # Fourth Stage
 run_data_quality_checks >> create_temperatures_demographics_fact_table
